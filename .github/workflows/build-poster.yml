@@ -30,7 +30,7 @@ jobs:
           sudo apt-get install -y texlive-luatex texlive-latex-extra fonts-texgyre
 
       - name: Generate table and optimized covers
-        run: python get_tabelle.py
+        run: python get_table.py
 
       - name: Build PDF
         run: lualatex -interaction=nonstopmode -halt-on-error main.tex

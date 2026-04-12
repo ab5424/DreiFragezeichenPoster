@@ -85,7 +85,10 @@ def latex_escape(text: str) -> str:
 def format_author_name(author: str) -> str:
     parts = [part.strip() for part in re.split(r"\s*(?:,|&)\s*", author) if part.strip()]
     escaped_parts = [latex_escape(part) for part in parts]
-    return r" \\ ".join(escaped_parts)
+    if len(escaped_parts) <= 1:
+        return escaped_parts[0] if escaped_parts else ""
+    # Tighten spacing between multiple author lines in one cell.
+    return r"\shortstack[l]{" + r"\\[-0.1em]".join(escaped_parts) + "}"
 
 
 def parse_release_date(release_date: str) -> date:
