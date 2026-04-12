@@ -1,0 +1,8 @@
+.DS_Store
+.venv/
+.mypy_cache/
+__pycache__/
+*.pyc
+covers/
+main.pdf
+tabelle.tex

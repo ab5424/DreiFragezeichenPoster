@@ -1,0 +1,26 @@
+\documentclass[a0paper,landscape,12pt]{article}
+\usepackage[margin=1.2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{fontspec}
+
+\definecolor{PosterBlack}{HTML}{050505}
+\definecolor{PosterRed}{HTML}{D61F3A}
+\definecolor{PosterBlue}{HTML}{4A90E2}
+\definecolor{PosterGold}{HTML}{F2C94C}
+
+\setmainfont{TeX Gyre Heros}
+
+\begin{document}
+\pagestyle{empty}
+\pagecolor{PosterBlack}
+\color{white}
+
+\noindent{\fontsize{66}{66}\selectfont\bfseries Die drei ?\textcolor{PosterRed}{?}\textcolor{PosterBlue}{?}}\\[0.35cm]
+\noindent{\Large\color{white!75}Folgenübersicht}
+
+\vspace{0.9cm}
+\input{table.tex}
+
+\end{document}

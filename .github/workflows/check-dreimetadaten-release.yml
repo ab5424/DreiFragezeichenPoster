@@ -1,0 +1,47 @@
+name: Check dreimetadaten Release
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  check-upstream:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check latest upstream release
+        id: upstream
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(gh api repos/YourMJK/dreimetadaten/releases/latest --jq .tag_name)
+          if [[ -z "$tag" || "$tag" == "null" ]]; then
+            echo "No upstream release tag found" >&2
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Check if corresponding local release exists
+        id: exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="dreimetadaten-${{ steps.upstream.outputs.tag }}"
+          if gh api "repos/${{ github.repository }}/releases/tags/$tag" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger release workflow for new upstream release
+        if: steps.exists.outputs.exists == 'false'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ github.token }}
+          event-type: dreimetadaten-release
+          client-payload: '{"upstream_tag":"${{ steps.upstream.outputs.tag }}"}'
