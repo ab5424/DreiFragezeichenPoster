@@ -115,6 +115,7 @@ lines.append("\\renewcommand{\\arraystretch}{1.28}\n")
 lines.append("\\begin{tabular}{>{\\raggedright\\arraybackslash}m{0.08\\textwidth} >{\\raggedright\\arraybackslash}m{0.92\\textwidth}}\n")
 lines.append(r"\textbf{Autor} & \textbf{Cover} \\" + "\n")
 lines.append("\\hline\n")
+lines.append("\\noalign{\\vskip 0.18em}\n")
 
 for author, author_books_raw in author_order:
     author_books = sorted(
