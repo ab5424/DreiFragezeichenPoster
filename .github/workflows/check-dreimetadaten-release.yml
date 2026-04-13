@@ -44,6 +44,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api repos/${{ github.repository }}/dispatches \
-            -X POST \
-            -f event_type=dreimetadaten-release \
-            -f client_payload='{"upstream_tag":"${{ steps.upstream.outputs.tag }}"}'
+            --method POST \
+            --input - <<EOF
+          {
+            "event_type": "dreimetadaten-release",
+            "client_payload": {
+              "upstream_tag": "${{ steps.upstream.outputs.tag }}"
+            }
+          }
+          EOF
