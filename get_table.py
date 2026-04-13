@@ -118,6 +118,11 @@ lines.append("\\hline\n")
 lines.append("\\noalign{\\vskip 0.18em}\n")
 
 for author, author_books_raw in author_order:
+    # Add subtle separator before Brigitte Johanna Henkel-Waidhofer
+    if author == "Brigitte Johanna Henkel-Waidhofer":
+        lines.append("\\noalign{\\hrule height 0.3pt}\n")
+        lines.append("\\noalign{\\vskip 0.12em}\n")
+    
     author_books = sorted(
         author_books_raw,
         key=lambda x: (parse_release_date(x["release_date"]), x["nr"]),
@@ -129,6 +134,11 @@ for author, author_books_raw in author_order:
     lines.append(
         f"{format_author_name(author)} & {covers} \\\\\n"
     )
+    
+    # Add subtle separator after Brigitte Johanna Henkel-Waidhofer
+    if author == "Brigitte Johanna Henkel-Waidhofer":
+        lines.append("\\noalign{\\vskip 0.12em}\n")
+        lines.append("\\noalign{\\hrule height 0.3pt}\n")
 
 lines.append("\\end{tabular}\n")
 
